@@ -60,6 +60,7 @@ func main() {
 	}
 }
 
+// Displays help information
 func printDefaults() {
 	fmt.Println("Usage: go-copy <options>")
 	fmt.Println("Options:")

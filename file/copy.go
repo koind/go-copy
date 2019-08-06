@@ -5,6 +5,7 @@ import (
 	"os"
 )
 
+// Copies files
 func Copy(fromPath string, toPath string, offset int64, limit int) (bool, error) {
 	soughtFile, err := os.Open(fromPath)
 	if err != nil {

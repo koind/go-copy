@@ -2,6 +2,8 @@ package file
 
 import (
 	"errors"
+	"github.com/cheggaaa/pb/v3"
+	"io"
 	"os"
 )
 
@@ -26,8 +28,7 @@ func Copy(fromPath string, toPath string, offset int64, limit int) (bool, error)
 		limit = int(fileInfo.Size())
 	}
 
-	buffer := make([]byte, limit)
-	_, err = soughtFile.ReadAt(buffer, offset)
+	_, err = soughtFile.Seek(offset, io.SeekStart)
 	if err != nil {
 		return false, err
 	}
@@ -38,10 +39,18 @@ func Copy(fromPath string, toPath string, offset int64, limit int) (bool, error)
 	}
 	defer newFile.Close()
 
-	_, err = newFile.Write(buffer)
-	if err != nil {
-		return false, err
+	newLimit := int64(limit)
+	bar := pb.Full.Start64(newLimit - offset)
+	barReader := bar.NewProxyReader(soughtFile)
+
+	_, err = io.CopyN(newFile, barReader, newLimit)
+	if err == nil || err == io.EOF {
+		bar.Finish()
+
+		return true, nil
 	}
 
-	return true, nil
+	bar.Finish()
+
+	return false, err
 }

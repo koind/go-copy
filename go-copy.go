@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/cheggaaa/pb/v3"
 	"github.com/koind/go-copy/file"
 	flag "github.com/spf13/pflag"
 )
@@ -41,19 +40,11 @@ func main() {
 		log.Fatal("Indicate the limit and offset")
 	}
 
-	bar := pb.StartNew(limit)
-
-	for i := 0; i < limit; i++ {
-		bar.Increment()
-	}
-
 	isCopied, err := file.Copy(fromPath, toPath, offset, limit)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-
-	bar.Finish()
 
 	if isCopied {
 		fmt.Println("Сopy was successful")

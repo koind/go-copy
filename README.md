@@ -16,7 +16,7 @@ go get github.com/koind/go-copy
 Usage example.
 
 ```
-./go-copy.go --from "./test.txt" --to "./test2.txt" --offset 0 --limit 1024
+./go-copy --from "./test.txt" --to "./test2.txt" --offset 0 --limit 1024
 ```
 
 ## Available Methods

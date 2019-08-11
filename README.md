@@ -26,14 +26,14 @@ The following methods are available:
 ##### koind/go-copy/file
 
 ```go
-Copy(fromPath string, toPath string, offset int64, limit int) (bool, error)
+Copy(fromPath string, toPath string, offset int64, limit int) error
 ```
 
 ## View command line options
 
 Run the following command from you terminal:
 ```
-./go-copy -help
+./go-copy --help
 ```
 
 Help information
@@ -41,7 +41,6 @@ Help information
 ```
 Usage of ./go-copy:
   -f, --from string   Path to file for copy
-      --help          Print help
   -l, --limit int     Limit for copying
   -o, --offset int    Offset to copy
   -t, --to string     Put a copy of the file on the path
